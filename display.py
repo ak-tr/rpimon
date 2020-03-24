@@ -15,10 +15,11 @@ t_count = 0
 disp_write = [""] * 20
 difference = [0] * 4
 newstats = [] * 4
+usage_smoothing = [0.0] * 10
 uptimestr = ""
 startwrite = 0
 network_speed = []
-speed_stats_retrieved = False;
+speed_stats_retrieved = False
 
 
 def update():
@@ -176,8 +177,11 @@ def write_covid_stats():
 
 
 def cpu_stats():
+    global usage_smoothing
     log_call()
     cmd = "/opt/vc/bin/vcgencmd measure_temp"
+
+    new_usage = 0
 
     out = subprocess.Popen(cmd,
                            stdout=subprocess.PIPE,
@@ -190,12 +194,21 @@ def cpu_stats():
     current_temp = current_temp.strip()
 
     current_cpu_usage = psutil.cpu_percent()
-    # current_cpu_usage = "{:04.1f}".format(current_cpu_usage)
+    #current_cpu_usage = "{:04.1f}".format(current_cpu_usage)
+
 
     if current_cpu_usage > 99:
         current_cpu_usage = int(100)
 
-    cpu_stats = [current_temp, current_cpu_usage]
+    usage_smoothing.pop(0)
+    usage_smoothing.append(current_cpu_usage)
+
+    for el in usage_smoothing:
+        new_usage += float(el)
+
+    new_usage = round(new_usage / 5, 1)
+
+    cpu_stats = [current_temp, new_usage]
 
     return cpu_stats
 
@@ -433,8 +446,8 @@ def main():
     try:
         while True:
             update()
-            time.sleep(0.1)
-            t_count += 0.1
+            time.sleep(0.2)
+            t_count += 0.2
             t_count = round(t_count, 1)
 
             write()
@@ -462,7 +475,7 @@ def main():
                 weather_stats_retrieved = False
 
     except Exception as error:
-        print(error)
+        print(traceback.format_exc())
 
 if __name__ == '__main__':
     start()

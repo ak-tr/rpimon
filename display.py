@@ -16,6 +16,7 @@ disp_write = [""] * 20
 difference = [0] * 4
 newstats = [] * 4
 usage_smoothing = [0.0] * 5
+temp_smoothing = [0.0] * 5
 uptimestr = ""
 startwrite = 0
 network_speed = []
@@ -178,6 +179,8 @@ def write_covid_stats():
 
 def cpu_stats():
     global usage_smoothing
+    global temp_smoothing
+
     log_call()
     cmd = "/opt/vc/bin/vcgencmd measure_temp"
 
@@ -204,10 +207,16 @@ def cpu_stats():
     usage_smoothing.append(current_cpu_usage)
 
     new_usage = sum(usage_smoothing)
-
     new_usage = round(new_usage / len(usage_smoothing), 1)
 
-    cpu_stats = [current_temp, new_usage]
+    temp_smoothing.pop(0)
+    temp_smoothing.append(float(current_temp))
+
+    new_temp = sum(temp_smoothing)
+    new_temp = round(new_temp / len(temp_smoothing), 1)
+
+
+    cpu_stats = [new_temp, new_usage]
 
     return cpu_stats
 

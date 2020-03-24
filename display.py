@@ -203,10 +203,9 @@ def cpu_stats():
     usage_smoothing.pop(0)
     usage_smoothing.append(current_cpu_usage)
 
-    for el in usage_smoothing:
-        new_usage += float(el)
+    new_usage = sum(usage_smoothing)
 
-    new_usage = round(new_usage / 5, 1)
+    new_usage = round(new_usage / len(usage_smoothing), 1)
 
     cpu_stats = [current_temp, new_usage]
 

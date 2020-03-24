@@ -2,7 +2,7 @@
 
 Displays information about my RPI4 on a 240x320 Adafruit TFT mini HAT display.
 
-![Image of Display](https://i.imgur.com/XsyPKPx.png)
+![Image of Display](https://i.imgur.com/n2DbC6M.jpg)
 
 ## Usage
 

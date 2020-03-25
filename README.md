@@ -10,6 +10,8 @@ If you would like to run this script on your Pi and your display resolution is l
 **IMPORTANT:**
 In order to use the `display.py` script, make sure you have ran the `prestart.py` script beforehand. For this you will need to create an OpenWeatherMap account to access their api. You will then be required to copy your api key and also find the city ID for your local city so that the program can accurately track your local weather.
 
+`prestart.py` will run the two scripts found in the `data_getters` directory. In order to run the `speedtest.py` script you will need to install Speedtest-CLI. Follow the instructions under Ubuntu/Debian at this website: https://www.speedtest.net/apps/cli
+
 Before you run this Python script you must install the required libraries:
 ```
 pip3 install requests

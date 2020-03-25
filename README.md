@@ -1,6 +1,5 @@
-# rpimon - PADD-inspired multi-purpose command line information monitor
-
-Displays information about my RPI4 on a 240x320 Adafruit TFT mini HAT display.
+# rpimon
+PADD-inspired multi-purpose terminal-based information monitor that displays information about my RPI4 as well as some sets of externally gathered data on a 240x320 Adafruit TFT mini HAT display.
 
 ![Image of Display](https://i.imgur.com/n2DbC6M.jpg)
 

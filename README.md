@@ -8,6 +8,11 @@ PADD-inspired multi-purpose terminal-based information monitor used to display i
 
 If you would like to run this script on your Pi and your display resolution is larger than **240x320** and your terminal font is set to anything but **6x12** it is highly likely that it will look very buggy.
 
+**In order to have the script grab your local weather stats, create an account at https://openweathermap.org, paste your API key in the line where it says {api-key} and grab the city id by searching for your local city at the website as well and replace the text where it says {city-id}
+```
+url = "http://api.openweathermap.org/data/2.5/weather?id={city-id}&appid={api-key}"
+```
+
 Before you run this Python script you must install the required libraries:
 ```
 pip3 install requests

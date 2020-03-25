@@ -25,7 +25,7 @@ while True:
              os.system("gpio -g pwm 18 " + str(brightness))
     if not(GPIO.input(27)):
         os.system("pkill -f display.py")
-        os.system("python3 /home/akif/Desktop/scripts/rpimon/display.py > /dev/tty1&")
+        os.system("python3 /home/akif/Desktop/scripts/display.py > /dev/tty1&")
     if not(GPIO.input(23)):
         os.system("pkill -f display.py")
         os.system("clear > /dev/tty1")

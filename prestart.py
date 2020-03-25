@@ -42,7 +42,7 @@ with open('displaynew.py', 'w') as file:
     for el in oldfile:
         file.write(el)
 
-print("/n[*] Removing old file display.py")
+print("\n[*] Removing old file display.py")
 os.remove("display.py")
 print("[*] Renaming new file displaynew.py -> display.py")
 os.rename("displaynew.py", "display.py")

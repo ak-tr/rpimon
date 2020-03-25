@@ -1,6 +1,6 @@
 # rpimon
 
-PADD-inspired multi-purpose command line information monitor used to dispaly information about my RPI4 as well as some sets of externally gathered data on a 240x320 Adafruit TFT mini HAT display.
+PADD-inspired multi-purpose terminal-based information monitor used to display information about my RPI4 as well as some sets of externally gathered data on a 240x320 Adafruit TFT mini HAT display.
 
 ![Image of Display](https://i.imgur.com/n2DbC6M.jpg)
 
@@ -17,7 +17,11 @@ pip3 install psutil
 ```
 The other libraries that are used by this that are usually included with python are `sys, subprocess, traceback, psutil, os, traceback, json, tempfile, time, datetime`
 
-Before you run the main script `display.py` , you must run the two scripts in the `data_getters` folder at least once. This is because this is how the main script gets the data for covid stats and network speed. However, if you only run it once, the values shown on the display will only show the data written to the files created by the scripts. If you would like it to constantly update along with the main `display.py` script, I highly recommend setting up a cron schedule to run those scripts like so:
+Before you run the main script `display.py` , you must run the two scripts in the `data_getters` folder at least once. 
+
+**In order to run the speedtest.py script you must have the Speedtest-CLI app installed. Follow the Ubuntu/Debian instructions under this link: https://www.speedtest.net/apps/cli**
+
+This is because this is how the main script gets the data for covid stats and network speed. However, if you only run it once, the values shown on the display will only show the data written to the files created by the scripts. If you would like it to constantly update along with the main `display.py` script, I highly recommend setting up a cron schedule to run those scripts like so:
 ```
 */30 * * * * cd *dir of data_getters* && python3 speedtest.py&
 */6 * * * * cd *dir of data_getters* && python3 covid.py&

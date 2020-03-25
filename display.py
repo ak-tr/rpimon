@@ -57,7 +57,7 @@ def separator(string, sep):
 
 def get_weather():
     log_call()
-    url = "http://api.openweathermap.org/data/2.5/weather?id=3333121&appid=0b8766219f170ee2905ce5b14e3b2e7e"
+    url = "http://api.openweathermap.org/data/2.5/weather?id={city-id}&appid={api-key}"
     response = requests.get(url)
 
     weather_get = json.loads(response.text)
@@ -86,8 +86,9 @@ def write_weather_stats():
 
 
 def write_error(e):
-    with open('errors.txt', 'a') as file:
-        file.write("[!] {} {}: {}\n".format(current_datetime()[0], current_datetime()[1], e))
+    pass
+    #with open('errors.txt', 'a') as file:
+    #   file.write("[!] {} {}: {}\n".format(current_datetime()[0], current_datetime()[1], e))
 
 
 def longprogressbar(percentage, col):

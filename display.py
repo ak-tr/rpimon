@@ -299,25 +299,28 @@ def get_network_stats():
     log_call()
     cmd = "iwconfig wlan0"
 
-    out = subprocess.Popen(cmd,
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.STDOUT,
-                           shell=True)
+    try:
+        out = subprocess.Popen(cmd,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.STDOUT,
+                               shell=True)
 
-    stdout, stderr = out.communicate()
+        stdout, stderr = out.communicate()
 
-    out_dec = stdout.decode('utf-8')
-    out_dec_lines = out_dec.splitlines()
+        out_dec = stdout.decode('utf-8')
+        out_dec_lines = out_dec.splitlines()
 
-    signal_level = out_dec_lines[5]
-    sig_substring = "Signal level="
+        signal_level = out_dec_lines[5]
+        sig_substring = "Signal level="
 
-    signal_level = signal_level.split(sig_substring, 1)[1]
-    signal_level = signal_level.replace(" ", "")
+        signal_level = signal_level.split(sig_substring, 1)[1]
+        signal_level = signal_level.replace(" ", "")
 
-    quality_percent = (int(signal_level.replace("dBm", "")) + 110) * 10 / 7
+        quality_percent = (int(signal_level.replace("dBm", "")) + 110) * 10 / 7
 
-    network_stats = [signal_level, int(quality_percent)]
+        network_stats = [signal_level, int(quality_percent)]
+    except Exception:
+        network_stats = [0, 0]
 
     return network_stats
 
@@ -388,15 +391,15 @@ def start():
 
     disp_start = [""] * 20
 
-    text = """   ,---.      ,--.-.,-.   .=-.-.   _,---.  
- .--.'  \    /==/- |\  \ /==/_ /.-`.' ,  \ 
- \==\-/\ \   |==|_ `/_ /|==|, |/==/_  _.-' 
- /==/-|_\ |  |==| ,   / |==|  /==/-  '..-. 
- \==\,   - \ |==|-  .|  |==|- |==|_ ,    / 
- /==/ -   ,| |==| _ , \ |==| ,|==|   .--'  
-/==/-  /\ - \/==/  '\  ||==|- |==|-  |     
-\==\ _.\=\.-'\==\ /\=\.'/==/. /==/   \     
- `--`         `--`      `--`-``--`---'     
+    text = """   ,---.      ,--.-.,-.   .=-.-.   _,---.
+ .--.'  \    /==/- |\  \ /==/_ /.-`.' ,  \
+ \==\-/\ \   |==|_ `/_ /|==|, |/==/_  _.-'
+ /==/-|_\ |  |==| ,   / |==|  /==/-  '..-.
+ \==\,   - \ |==|-  .|  |==|- |==|_ ,    /
+ /==/ -   ,| |==| _ , \ |==| ,|==|   .--'
+/==/-  /\ - \/==/  '\  ||==|- |==|-  |
+\==\ _.\=\.-'\==\ /\=\.'/==/. /==/   \
+ `--`         `--`      `--`-``--`---'
 """
 
     lines_text = text.splitlines()
